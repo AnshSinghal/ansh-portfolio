@@ -12,19 +12,14 @@ import ThemeToggle from '@/components/ui/ThemeToggle';
 import { useEffect } from 'react';
 
 export default function Home() {
-  // Add an event listener for WebGL context loss
+  // Add a simple WebGL context loss handler
   useEffect(() => {
-    const handleContextLoss = () => {
-      console.warn("WebGL context lost - using fallback background");
-      
-      // Add a fallback background if WebGL fails
-      const fallbackBg = document.createElement('div');
-      fallbackBg.className = "fixed inset-0 z-[-1] bg-gradient-radial from-purple-500/10 via-background to-background";
-      document.body.appendChild(fallbackBg);
+    const handleWebGLContextLost = () => {
+      console.warn('WebGL context lost - falling back to CSS gradient');
     };
     
-    window.addEventListener('webglcontextlost', handleContextLoss);
-    return () => window.removeEventListener('webglcontextlost', handleContextLoss);
+    window.addEventListener('webglcontextlost', handleWebGLContextLost);
+    return () => window.removeEventListener('webglcontextlost', handleWebGLContextLost);
   }, []);
   
   return (

@@ -10,23 +10,28 @@ import NeuralNetworkBackground from './NeuralNetworkBackground';
 // Interactive camera that follows mouse very subtly
 const InteractiveCamera = () => {
   const { camera } = useThree();
-  const [mousePosition] = useState(new THREE.Vector2(0, 0));
+  const mousePositionRef = useRef(new THREE.Vector2(0, 0));
   const targetPosition = useRef(new THREE.Vector3(0, 0, 10));
+  const frameCount = useRef(0);
   
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      mousePosition.x = (e.clientX / window.innerWidth) * 2 - 1;
-      mousePosition.y = -(e.clientY / window.innerHeight) * 2 + 1;
+      mousePositionRef.current.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mousePositionRef.current.y = -(e.clientY / window.innerHeight) * 2 + 1;
     };
     
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mousePosition]);
+  }, []);
   
   useFrame(() => {
-    // Even more subtle camera movement for better performance
-    targetPosition.current.x = mousePosition.x * 0.3;
-    targetPosition.current.y = mousePosition.y * 0.3;
+    // Only update camera position every few frames for better performance
+    frameCount.current++;
+    if (frameCount.current % 5 !== 0) return;
+    
+    // Extremely subtle camera movement for performance
+    targetPosition.current.x = mousePositionRef.current.x * 0.2;
+    targetPosition.current.y = mousePositionRef.current.y * 0.2;
     
     camera.position.x += (targetPosition.current.x - camera.position.x) * 0.01;
     camera.position.y += (targetPosition.current.y - camera.position.y) * 0.01;
@@ -79,20 +84,6 @@ const GlobalBackground = ({ children }: GlobalBackgroundProps) => {
   const [isLowPerformance, setIsLowPerformance] = useState(true); // Assume low performance by default
   const [hasError, setHasError] = useState(false);
   
-  // Handle performance mode changes
-  const handlePerformanceChange = ({ factor }: { factor: number }) => {
-    if (factor < 0.5) {
-      setDpr(0.6);
-      setIsLowPerformance(true);
-    } else if (factor < 0.8) {
-      setDpr(0.8);
-      setIsLowPerformance(true);
-    } else {
-      setDpr(1.0); // Reduced from 1.5 to 1.0 for better performance
-      setIsLowPerformance(false);
-    }
-  };
-  
   // Handle WebGL errors
   useEffect(() => {
     const handleError = () => {
@@ -100,8 +91,8 @@ const GlobalBackground = ({ children }: GlobalBackgroundProps) => {
     };
     
     window.addEventListener('webglcontextlost', handleError);
-    window.addEventListener('error', (e) => {
-      if (e.message?.includes('WebGL') || e.message?.includes('shader')) {
+    window.addEventListener('error', (e: ErrorEvent) => {
+      if (e.message?.includes('WebGL') || e.message?.includes('shader') || e.message?.includes('THREE')) {
         handleError();
       }
     });
@@ -112,6 +103,20 @@ const GlobalBackground = ({ children }: GlobalBackgroundProps) => {
     };
   }, []);
   
+  // Handle performance mode changes
+  const handlePerformanceChange = ({ factor }: { factor: number }) => {
+    if (factor < 0.5) {
+      setDpr(0.6);
+      setIsLowPerformance(true);
+    } else if (factor < 0.8) {
+      setDpr(0.8);
+      setIsLowPerformance(true);
+    } else {
+      setDpr(1.0); // Max DPR of 1.0 for performance
+      setIsLowPerformance(false);
+    }
+  };
+  
   return (
     <div className="fixed top-0 left-0 w-full h-full z-[-1]">
       {!hasError ? (
@@ -119,9 +124,11 @@ const GlobalBackground = ({ children }: GlobalBackgroundProps) => {
           dpr={dpr}
           gl={{ 
             antialias: false, // Disable antialiasing for performance
-            powerPreference: 'low-power', // Changed from 'default' to 'low-power'
+            powerPreference: 'low-power',
             alpha: true,
-            preserveDrawingBuffer: false, // Changed to false for performance
+            depth: true,
+            stencil: false, // Disable stencil buffer
+            preserveDrawingBuffer: false, // Disable preserveDrawingBuffer
             failIfMajorPerformanceCaveat: false
           }}
           style={{
@@ -131,24 +138,18 @@ const GlobalBackground = ({ children }: GlobalBackgroundProps) => {
           }}
           camera={{ position: [0, 0, 30], fov: 60 }}
           onError={() => setHasError(true)}
-          frameloop="demand" // Changed to demand for better performance
         >
           <PerformanceMonitor 
-            onDecline={handlePerformanceChange} 
-            bounds={(refreshrate) => [0, 0.9]} // Corrected bounds format
-            onIncline={({ factor }) => {
-              if (factor > 0.9 && dpr < 1.0) {
-                setDpr(Math.min(dpr + 0.1, 1.0));
-              }
-            }}
+            onDecline={handlePerformanceChange}
+            bounds={(refreshrate) => [0, 0.9]} // Function returning bounds
           />
           <InteractiveCamera />
           <BasicLighting />
           
-          {/* Neural Network Background - using our highly optimized component */}
+          {/* Neural Network Background - using optimized component */}
           <NeuralNetworkBackground 
             theme={theme} 
-            nodeCount={isLowPerformance ? 20 : 30} // Further reduced node count
+            nodeCount={isLowPerformance ? 20 : 30} // Reduced node count
           />
           
           {children}
