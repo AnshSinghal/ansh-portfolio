@@ -2,190 +2,54 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Ansh Singhal - AI/ML Engineer & Open Source Contributor. Explore my portfolio showcasing machine learning projects, research work, and technical expertise." />
+    <meta name="keywords" content="Ansh Singhal, AI Engineer, Machine Learning, Open Source, Portfolio, Data Science, ML Engineer" />
+    <meta name="author" content="Ansh Singhal" />
+    <meta name="robots" content="index, follow" />
     
-    <!-- Advanced Security Measures -->
-    <script>
-      // Disable right-click and context menu
-      document.addEventListener('contextmenu', (e) => e.preventDefault());
-      
-      // Disable text selection
-      document.addEventListener('selectstart', (e) => e.preventDefault());
-      
-      // Disable drag and drop
-      document.addEventListener('dragstart', (e) => e.preventDefault());
-      
-      // Disable copy
-      document.addEventListener('copy', (e) => e.preventDefault());
-      
-      // Disable cut
-      document.addEventListener('cut', (e) => e.preventDefault());
-      
-      // Disable paste
-      document.addEventListener('paste', (e) => e.preventDefault());
-      
-      // Disable developer tools shortcuts
-      document.addEventListener('keydown', function(e) {
-        // Disable F12
-        if(e.keyCode == 123) {
-          e.preventDefault();
-          return false;
-        }
-        
-        // Disable Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C
-        if(e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || 
-           e.keyCode == 'J'.charCodeAt(0) || 
-           e.keyCode == 'C'.charCodeAt(0))) {
-          e.preventDefault();
-          return false;
-        }
-        
-        // Disable Ctrl+U (View Source)
-        if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-          e.preventDefault();
-          return false;
-        }
-        
-        // Disable Ctrl+S (Save)
-        if(e.ctrlKey && e.keyCode == 'S'.charCodeAt(0)) {
-          e.preventDefault();
-          return false;
-        }
-        
-        // Disable Ctrl+P (Print)
-        if(e.ctrlKey && e.keyCode == 'P'.charCodeAt(0)) {
-          e.preventDefault();
-          return false;
-        }
-      });
-      
-      // Advanced developer tools detection
-      (function() {
-        let devtools = function() {};
-        devtools.toString = function() {
-          // Clear the page content silently
-          document.documentElement.innerHTML = '';
-          return '';
-        }
-        
-        // Monitor console
-        setInterval(function() {
-          console.log(devtools);
-          console.clear();
-        }, 1000);
-        
-        // Monitor window size changes
-        let lastWidth = window.innerWidth;
-        let lastHeight = window.innerHeight;
-        
-        setInterval(function() {
-          if (window.innerWidth !== lastWidth || window.innerHeight !== lastHeight) {
-            document.documentElement.innerHTML = '';
-          }
-          lastWidth = window.innerWidth;
-          lastHeight = window.innerHeight;
-        }, 1000);
-        
-        // Disable debugger
-        setInterval(function() {
-          debugger;
-        }, 100);
-      })();
-      
-      // Disable console methods
-      (function() {
-        const methods = ['log', 'info', 'warn', 'error', 'debug', 'trace'];
-        methods.forEach(method => {
-          console[method] = function() {};
-        });
-      })();
-      
-      // Disable source viewing
-      document.addEventListener('keydown', function(e) {
-        if (e.ctrlKey && (e.keyCode === 85 || e.keyCode === 117)) {
-          e.preventDefault();
-          return false;
-        }
-      });
-    </script>
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="Ansh Singhal - AI/ML Engineer & Open Source Contributor" />
+    <meta property="og:description" content="Explore my portfolio showcasing machine learning projects, research work, and technical expertise." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://anshsinghal.vercel.app" />
+    <meta property="og:image" content="https://anshsinghal.vercel.app/og-image.jpg" />
     
-    <!-- Primary Meta Tags -->
-    <title>Ansh Singhal – AI/ML Engineer & Open Source Contributor</title>
-    <meta name="title" content="Ansh Singhal – AI/ML Engineer & Open Source Contributor">
-    <meta name="description" content="AI/ML Engineer passionate about building intelligent systems, scalable backend tools, and contributing to open-source. Specializing in MLOps, Python, TensorFlow, and PyTorch.">
-    <meta name="keywords" content="Ansh Singhal, AI Engineer, Machine Learning, MLOps, Open Source, Portfolio, Data Science, Python, TensorFlow, PyTorch, FastAPI, Docker, AWS">
-    <meta name="author" content="Ansh Singhal">
-    <meta name="robots" content="index, follow">
-    <meta name="language" content="English">
-    <meta name="revisit-after" content="7 days">
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Ansh Singhal - AI/ML Engineer & Open Source Contributor" />
+    <meta name="twitter:description" content="Explore my portfolio showcasing machine learning projects, research work, and technical expertise." />
+    <meta name="twitter:image" content="https://anshsinghal.vercel.app/og-image.jpg" />
     
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://anshsinghal.dev/">
-    <meta property="og:title" content="Ansh Singhal – AI/ML Engineer & Open Source Contributor">
-    <meta property="og:description" content="AI/ML Engineer passionate about building intelligent systems, scalable backend tools, and contributing to open-source. Specializing in MLOps, Python, TensorFlow, and PyTorch.">
-    <meta property="og:image" content="https://anshsinghal.dev/assets/og-image.jpg">
-    <meta property="og:site_name" content="Ansh Singhal Portfolio">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://anshsinghal.dev/">
-    <meta property="twitter:title" content="Ansh Singhal – AI/ML Engineer & Open Source Contributor">
-    <meta property="twitter:description" content="AI/ML Engineer passionate about building intelligent systems, scalable backend tools, and contributing to open-source. Specializing in MLOps, Python, TensorFlow, and PyTorch.">
-    <meta property="twitter:image" content="https://anshsinghal.dev/assets/og-image.jpg">
-    <meta property="twitter:creator" content="@anshsinghal">
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://anshsinghal.dev/" />
-
-    <!-- Structured Data -->
+    <!-- Structured Data for SEO -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Ansh Singhal",
-      "url": "https://anshsinghal.dev",
-      "jobTitle": "AI/ML Engineer",
-      "description": "AI/ML Engineer passionate about building intelligent systems, scalable backend tools, and contributing to open-source.",
-      "image": "https://anshsinghal.dev/assets/og-image.jpg",
-      "email": "anshsinghal3107@gmail.com",
-      "sameAs": [
-        "https://github.com/AnshSinghal",
-        "https://linkedin.com/in/anshhh-singhal",
-        "https://kaggle.com/anshsinghal3107"
-      ],
-      "knowsAbout": [
-        "Artificial Intelligence",
-        "Machine Learning",
-        "MLOps",
-        "Open Source",
-        "Python",
-        "TensorFlow",
-        "PyTorch",
-        "FastAPI",
-        "Docker",
-        "AWS"
-      ],
-      "worksFor": {
-        "@type": "Organization",
-        "name": "Freelance"
-      },
-      "alumniOf": {
-        "@type": "CollegeOrUniversity",
-        "name": "Bennett University"
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Ansh Singhal",
+        "url": "https://anshsinghal.vercel.app",
+        "jobTitle": "AI/ML Engineer",
+        "description": "AI/ML Engineer & Open Source Contributor",
+        "email": "anshsinghal3107@gmail.com",
+        "sameAs": [
+          "https://github.com/AnshSinghal",
+          "https://linkedin.com/in/anshhh-singhal",
+          "https://kaggle.com/anshsinghal3107"
+        ]
       }
-    }
     </script>
-
+    
     <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Q7W58C6EJG"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', 'G-Q7W58C6EJG');
+      gtag('config', 'G-XXXXXXXXXX');
     </script>
+    
+    <title>Ansh Singhal - AI/ML Engineer & Open Source Contributor</title>
   </head>
   <body>
     <div id="root"></div>
