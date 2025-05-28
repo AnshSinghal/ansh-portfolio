@@ -1,100 +1,62 @@
-import { FlipWords } from "./FlipWords";
 import { motion } from "motion/react";
+import { useMediaQuery } from "react-responsive";
+import { useState, useEffect } from "react";
 
 const HeroText = () => {
-  const words = ["Intelligent", "Scalable", "Data-Driven", "Robust"];
-  const variants = {
-    hidden: { opacity: 0, x: -50 },
-    visible: { opacity: 1, x: 0 },
-  };
+  const isMobile = useMediaQuery({ maxWidth: 768 });
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    // Simulate content loading
+    const timer = setTimeout(() => setIsLoaded(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!isLoaded) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen text-center px-4">
+        <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
   return (
-    <div className="z-10 mt-20 text-center md:mt-40 md:text-left rounded-3xl bg-clip-text">
-      {/* Desktop View */}
-      <div className="flex-col hidden md:flex c-space">
-        <motion.h1
-          className="text-4xl font-medium"
-          variants={variants}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 1 }}
+    <div className="flex flex-col items-center justify-center min-h-screen text-center px-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="max-w-3xl"
+      >
+        <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          Ansh Singhal
+        </h1>
+        <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-gray-200">
+          AI/ML Engineer & Open Source Contributor
+        </h2>
+        <p className="text-lg md:text-xl text-gray-300 mb-8">
+          Building intelligent solutions and contributing to the open-source community
+        </p>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="flex flex-col md:flex-row gap-4 justify-center"
         >
-          Hi I'm Ansh Singhal,
-        </motion.h1>
-        <div className="flex flex-col items-start">
-          <motion.p
-            className="text-5xl font-medium text-neutral-300"
-            variants={variants}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 1.2 }}
+          <a
+            href="#projects"
+            className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
           >
-            An AI/ML Engineer <br /> Dedicated to Crafting
-          </motion.p>
-          <motion.div
-            variants={variants}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 1.5 }}
+            View Projects
+          </a>
+          <a
+            href="#contact"
+            className="px-6 py-3 border border-primary text-primary rounded-lg hover:bg-primary/10 transition-colors"
           >
-            <FlipWords
-              words={words}
-              className="font-black text-white text-8xl"
-            />
-          </motion.div>
-          <motion.p
-            className="text-4xl font-medium text-neutral-300"
-            variants={variants}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 1.8 }}
-          >
-            Machine Learning Solutions
-          </motion.p>
-        </div>
-      </div>
-      {/* Mobile View */}
-      <div className="flex flex-col md:hidden c-space">
-        <motion.h1
-          className="text-2xl font-medium"
-          variants={variants}
-          initial="hidden"
-          animate="visible"
-          transition={{ delay: 1 }}
-        >
-          Hi I'm Ansh Singhal,
-        </motion.h1>
-        <div className="flex flex-col items-center">
-          <motion.p
-            className="text-3xl font-medium text-neutral-300"
-            variants={variants}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 1.2 }}
-          >
-            An AI/ML Engineer <br /> Dedicated to Crafting
-          </motion.p>
-          <motion.div
-            variants={variants}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 1.5 }}
-          >
-            <FlipWords
-              words={words}
-              className="font-black text-white text-5xl"
-            />
-          </motion.div>
-          <motion.p
-            className="text-2xl font-medium text-neutral-300"
-            variants={variants}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 1.8 }}
-          >
-            Machine Learning Solutions
-          </motion.p>
-        </div>
-      </div>
+            Contact Me
+          </a>
+        </motion.div>
+      </motion.div>
     </div>
   );
 };
