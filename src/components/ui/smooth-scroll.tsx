@@ -1,48 +1,45 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Lenis from "@studio-freight/lenis";
 import { useMediaQuery } from "react-responsive";
 
 export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
   const isMobile = useMediaQuery({ maxWidth: 853 });
-  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     if (isMobile) return;
 
+    let lenis: Lenis | null = null;
+    let rafId: number;
+
     try {
-      const lenis = new Lenis({
+      lenis = new Lenis({
         duration: 1.2,
         easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         orientation: "vertical",
         gestureOrientation: "vertical",
         smoothWheel: true,
-        infinite: false,
       });
 
-      let rafId: number;
-
-      function raf(time: number) {
-        lenis.raf(time);
+      const raf = (time: number) => {
+        lenis?.raf(time);
         rafId = requestAnimationFrame(raf);
-      }
+      };
 
       rafId = requestAnimationFrame(raf);
-
-      return () => {
-        cancelAnimationFrame(rafId);
-        lenis.destroy();
-      };
     } catch (error) {
-      console.error("Smooth scroll initialization failed:", error);
-      setIsError(true);
+      console.error("Failed to initialize smooth scroll:", error);
     }
+
+    return () => {
+      if (rafId) {
+        cancelAnimationFrame(rafId);
+      }
+      if (lenis) {
+        lenis.destroy();
+      }
+    };
   }, [isMobile]);
 
-  // If there's an error or we're on mobile, render without smooth scroll
-  if (isError || isMobile) {
-    return <>{children}</>;
-  }
-
-  return <>{children}</>;
+  return <div className={isMobile ? "overflow-x-hidden" : ""}>{children}</div>;
 }; 

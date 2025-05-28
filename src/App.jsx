@@ -9,8 +9,11 @@ import FloatingDockDemo from "./components/floating-dock-demo";
 import { Particles } from "./components/Particles";
 import { CustomScrollbar } from "./components/ui/custom-scrollbar";
 import { SmoothScroll } from "./components/ui/smooth-scroll";
+import { useMediaQuery } from "react-responsive";
 
 const App = () => {
+  const isMobile = useMediaQuery({ maxWidth: 853 });
+
   return (
     <SmoothScroll>
       <div className="relative min-h-screen overflow-x-hidden">
@@ -18,21 +21,25 @@ const App = () => {
           html {
             scrollbar-width: none;
             -ms-overflow-style: none;
+            ${isMobile ? 'overflow-x: hidden;' : ''}
           }
           html::-webkit-scrollbar {
             display: none;
           }
+          body {
+            ${isMobile ? 'overflow-x: hidden; position: relative;' : ''}
+          }
         `}</style>
 
-        {/* Custom Scrollbar */}
-        <CustomScrollbar />
+        {/* Custom Scrollbar - Only show on desktop */}
+        {!isMobile && <CustomScrollbar />}
 
         {/* Particles Background */}
         <div className="fixed inset-0 -z-10">
           <Particles
             className="absolute inset-0"
-            quantity={100}
-            staticity={30}
+            quantity={isMobile ? 50 : 100}
+            staticity={isMobile ? 20 : 30}
             color="#ffffff"
           />
         </div>
