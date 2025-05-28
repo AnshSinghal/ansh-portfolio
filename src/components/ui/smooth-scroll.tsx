@@ -1,17 +1,20 @@
 "use client";
 import React, { useEffect } from "react";
 import Lenis from "@studio-freight/lenis";
+import { useMediaQuery } from "react-responsive";
 
 export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
+  const isMobile = useMediaQuery({ maxWidth: 853 });
+
   useEffect(() => {
+    if (isMobile) return; // Disable smooth scroll on mobile
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: "vertical",
-      gestureDirection: "vertical",
-      smooth: true,
-      smoothTouch: false,
-      touchMultiplier: 2,
+      orientation: "vertical",
+      gestureOrientation: "vertical",
+      smoothWheel: true,
     });
 
     function raf(time: number) {
@@ -24,7 +27,7 @@ export const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
     return () => {
       lenis.destroy();
     };
-  }, []);
+  }, [isMobile]);
 
   return <>{children}</>;
 }; 

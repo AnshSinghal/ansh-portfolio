@@ -1,12 +1,14 @@
 import { motion, useScroll, useSpring, useTransform } from "motion/react";
+import { useMediaQuery } from "react-responsive";
 
 const ParallaxBackground = () => {
+  const isMobile = useMediaQuery({ maxWidth: 853 });
   const { scrollYProgress } = useScroll();
   const x = useSpring(scrollYProgress, { damping: 50 });
-  const mountain3Y = useTransform(x, [0, 0.5], ["0%", "70%"]);
-  const planetsX = useTransform(x, [0, 0.5], ["0%", "-20%"]);
-  const mountain2Y = useTransform(x, [0, 0.5], ["0%", "30%"]);
-  const mountain1Y = useTransform(x, [0, 0.5], ["0%", "0%"]);
+  
+  // Simplified transforms for mobile
+  const mountainY = useTransform(x, [0, 0.5], ["0%", isMobile ? "30%" : "70%"]);
+  const planetsX = useTransform(x, [0, 0.5], ["0%", isMobile ? "-10%" : "-20%"]);
 
   return (
     <section className="absolute inset-0 bg-black/40">
@@ -20,14 +22,16 @@ const ParallaxBackground = () => {
             backgroundSize: "cover",
           }}
         />
-        {/* Mountain Layer 3 */}
+        {/* Mountains - Combined layers for mobile */}
         <motion.div
           className="absolute inset-0 -z-40"
           style={{
-            backgroundImage: "url(/assets/mountain-3.png)",
+            backgroundImage: isMobile 
+              ? "url(/assets/mountain-3.png)"
+              : "url(/assets/mountain-3.png)",
             backgroundPosition: "bottom",
             backgroundSize: "cover",
-            y: mountain3Y,
+            y: mountainY,
           }}
         />
         {/* Planets */}
@@ -40,26 +44,29 @@ const ParallaxBackground = () => {
             x: planetsX,
           }}
         />
-        {/* Mountain Layer 2 */}
-        <motion.div
-          className="absolute inset-0 -z-20"
-          style={{
-            backgroundImage: "url(/assets/mountain-2.png)",
-            backgroundPosition: "bottom",
-            backgroundSize: "cover",
-            y: mountain2Y,
-          }}
-        />
-        {/* Mountaine Layer 1 */}
-        <motion.div
-          className="absolute inset-0 -z-10"
-          style={{
-            backgroundImage: "url(/assets/mountain-1.png)",
-            backgroundPosition: "bottom",
-            backgroundSize: "cover",
-            y: mountain1Y,
-          }}
-        />
+        {/* Additional mountain layers only for desktop */}
+        {!isMobile && (
+          <>
+            <motion.div
+              className="absolute inset-0 -z-20"
+              style={{
+                backgroundImage: "url(/assets/mountain-2.png)",
+                backgroundPosition: "bottom",
+                backgroundSize: "cover",
+                y: useTransform(x, [0, 0.5], ["0%", "30%"]),
+              }}
+            />
+            <motion.div
+              className="absolute inset-0 -z-10"
+              style={{
+                backgroundImage: "url(/assets/mountain-1.png)",
+                backgroundPosition: "bottom",
+                backgroundSize: "cover",
+                y: useTransform(x, [0, 0.5], ["0%", "0%"]),
+              }}
+            />
+          </>
+        )}
       </div>
     </section>
   );
