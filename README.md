@@ -1,116 +1,152 @@
-# 🚀 3D Developer Portfolio
+# Ansh Singhal's Portfolio Website
 
-A modern, animated 3D developer portfolio built with React, Three.js, TailwindCSS, and motion effects — designed to help you stand out and showcase your skills creatively.
+A modern, responsive portfolio website showcasing my work as an AI/ML Engineer and Open Source Contributor. Built with React, Three.js, and Vite, featuring a sleek design and interactive 3D elements.
 
-![3d Portfolio Screenshot GitHub](https://github.com/user-attachments/assets/9b0ed20e-074e-4f2a-81d8-20c9da751e9e)
+![Portfolio Preview](assets/og-image.jpg)
 
----
+## 🌟 Features
 
-## 📚 Table of Contents
+- **Interactive 3D Elements**: Engaging 3D animations and visualizations using Three.js
+- **Responsive Design**: Fully responsive layout that works on all devices
+- **Modern UI/UX**: Clean and intuitive user interface with smooth animations
+- **Performance Optimized**: Built with Vite for fast loading and optimal performance
+- **SEO Friendly**: Comprehensive meta tags and structured data for better search engine visibility
+- **Dark Mode**: Elegant dark theme with customizable color schemes
+- **Contact Form**: Integrated contact form with EmailJS for easy communication
+- **Social Integration**: Direct links to professional profiles (GitHub, LinkedIn, Kaggle)
 
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Project Structure](#-project-structure)
-- [Getting Started](#-getting-started)
-- [Assets](#-assets)
-- [Contact Me](#-contact-me)
-- [Suggestions or Feedback](#-suggestions-or-feedback)
-- [Like This Project?](#-like-this-project)
+## 🛠️ Technologies Used
 
----
+- **Frontend Framework**: React.js
+- **Build Tool**: Vite
+- **3D Graphics**: Three.js
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Email Service**: EmailJS
+- **Analytics**: Google Analytics
+- **Version Control**: Git
 
-## ✨ Features
+## 🚀 Getting Started
 
-- 🔥 3D visuals powered by **React Three Fiber** and **Drei**
-- ⚡ Smooth transitions and scroll-based animations using **Framer Motion**
-- 🎨 Clean, responsive UI with **TailwindCSS**
-- 💌 Working contact form using **EmailJS**
-- 🧱 Beautiful UI enhancements with **Aceternity UI** and **Magic UI**
-- 🚀 Lightning-fast development with **Vite**
+### Prerequisites
 
----
+- Node.js (v14.0.0 or higher)
+- npm or yarn
 
-## 🛠 Tech Stack
+### Installation
 
-| Tech              | Description                           |
-|-------------------|---------------------------------------|
-| React             | Front-end JavaScript library          |
-| Vite              | Fast bundler and dev environment      |
-| TailwindCSS       | Utility-first CSS framework           |
-| React Three Fiber | 3D rendering with Three.js in React   |
-| Drei              | Helpers and abstractions for R3F      |
-| Framer Motion     | Animation library for React           |
-| EmailJS           | Form handling and email integration   |
-| Aceternity UI     | Custom UI components                  |
-| Magic UI          | Prebuilt UI elements and design extras|
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/AnshSinghal/portfolio.git
+   ```
 
----
+2. Navigate to the project directory:
+   ```bash
+   cd portfolio
+   ```
+
+3. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+4. Start the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+5. Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+### Building for Production
+
+```bash
+npm run build
+# or
+yarn build
+```
 
 ## 📁 Project Structure
 
-```bash
+```
+portfolio/
 ├── public/
-│   ├── assets/             # Images, textures, models
-│   ├── models/             # 3D Astronaut model
-│   └── vite.svg
+│   ├── assets/
+│   │   ├── logos/
+│   │   ├── projects/
+│   │   └── socials/
+│   ├── robots.txt
+│   └── sitemap.xml
 ├── src/
-│   ├── components/         # Reusable components
-│   ├── constants/          # Reusable datas
-│   ├── sections/           # Portfolio sections (Hero, About, etc.)
-│   ├── App.jsx             # Main app file
-│   ├── index.css           # Tailwind css
-│   └── main.jsx            # Entry point
-├── tailwind.config.js
-└── vite.config.js
+│   ├── components/
+│   ├── sections/
+│   ├── constants/
+│   ├── App.jsx
+│   └── main.jsx
+├── index.html
+└── package.json
 ```
 
----
+## 🔧 Configuration
 
-## 🚀 Getting Started
-1. Clone the Repository
-```bash
-git clone https://github.com/Ali-Sanati/Portfolio.git
-cd Portfolio
+### Environment Variables
+
+Create a `.env` file in the root directory:
+
+```env
+VITE_EMAILJS_SERVICE_ID=your_service_id
+VITE_EMAILJS_TEMPLATE_ID=your_template_id
+VITE_EMAILJS_PUBLIC_KEY=your_public_key
+VITE_GA_TRACKING_ID=your_ga_tracking_id
 ```
-2. Install Dependencies
-```bash
-npm install
-```
-3. Run the Development Server
-```bash
-npm run dev
-```
-The app will be available at http://localhost:5173.
+
+### Customization
+
+- Update personal information in `src/constants/index.js`
+- Modify meta tags in `index.html`
+- Customize colors in `tailwind.config.js`
+
+## 📱 Responsive Design
+
+The portfolio is fully responsive and optimized for:
+- Desktop (1920px and below)
+- Tablet (1024px and below)
+- Mobile (768px and below)
+
+## 🔍 SEO Features
+
+- Meta tags optimization
+- Structured data (JSON-LD)
+- Sitemap generation
+- Robots.txt configuration
+- Open Graph and Twitter Card support
+
+## 📊 Analytics
+
+Google Analytics integration for tracking:
+- Page views
+- User behavior
+- Traffic sources
+- Custom events
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Contact
+
+- **Email**: anshsinghal3107@gmail.com
+- **LinkedIn**: [Ansh Singhal](https://www.linkedin.com/in/anshhh-singhal/)
+- **GitHub**: [@AnshSinghal](https://github.com/AnshSinghal)
+- **Kaggle**: [@anshsinghal3107](https://www.kaggle.com/anshsinghal3107)
 
 ---
 
-## 🔗 Assets
-Assets used in the project can be found [here](https://github.com/user-attachments/files/19820923/public.zip)
-
----
-
-## 📬 Contact Me
-[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?logo=Instagram&logoColor=white)](https://www.instagram.com/ali.sanatidev/reels/) 
-[![Static Badge](https://img.shields.io/badge/Youtube-%23FF0033?style=flat&logo=youtube)](https://www.youtube.com/channel/UCZhtUWTtk3bGJiMPN9T4HWA)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ali-sanati/) 
-
----
-
-## 💡 Suggestions or Feedback?
-Leave a comment on the [YouTube video](https://youtu.be/S9UQItTpwUQ) or open an issue here on GitHub.<br/>
-👉 What should I build next?
-
-- A beautiful Landing Page
-
-- A complete E-commerce site
-
-- A fun App Clone (YouTube, Netflix, etc.)
-
-Or another interactive Portfolio
-
-Let me know!
-
----
-
-## ⭐ Like This Project?
-Star the repo and [subscribe](https://www.youtube.com/channel/UCZhtUWTtk3bGJiMPN9T4HWA??sub_confirmation=1) to the YouTube channel for more dev content!
+Made with ❤️ by Ansh Singhal
