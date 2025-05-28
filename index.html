@@ -48,6 +48,25 @@
       gtag('js', new Date());
       gtag('config', 'G-XXXXXXXXXX');
     </script>
+
+    <!-- Lightweight Protection Script -->
+    <script>
+      // Disable right-click context menu
+      document.addEventListener('contextmenu', e => {
+        e.preventDefault();
+      });
+
+      // Disable F12, Ctrl+Shift+I/C/J, Ctrl+U
+      document.addEventListener('keydown', e => {
+        const forbidden =
+          e.key === 'F12' ||
+          (e.ctrlKey && e.shiftKey && ['I', 'C', 'J'].includes(e.key)) ||
+          (e.ctrlKey && e.key === 'U');
+        if (forbidden) {
+          e.preventDefault();
+        }
+      });
+    </script>
     
     <title>Ansh Singhal - AI/ML Engineer & Open Source Contributor</title>
   </head>
