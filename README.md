@@ -2,7 +2,8 @@
 
 A modern, responsive portfolio website showcasing my work as an AI/ML Engineer and Open Source Contributor. Built with React, Three.js, and Vite, featuring a sleek design and interactive 3D elements.
 
-![Portfolio Preview](public/assets/hero-anim.gif)
+![Portfolio Preview](hero.png)
+
 
 ## 🌟 Features
 
