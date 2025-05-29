@@ -8,6 +8,7 @@ import {
   useSpring,
 } from "motion/react";
 import { cn } from "../../lib/utils";
+import { useMediaQuery } from "react-responsive";
 
 export const TracingBeam = ({
   children,
@@ -16,6 +17,7 @@ export const TracingBeam = ({
   children: React.ReactNode;
   className?: string;
 }) => {
+  const isMobile = useMediaQuery({ maxWidth: 853 });
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -31,20 +33,28 @@ export const TracingBeam = ({
     }
   }, []);
 
+  // Optimize spring settings for mobile
+  const springConfig = {
+    stiffness: isMobile ? 300 : 500,
+    damping: isMobile ? 50 : 90,
+  };
+
   const y1 = useSpring(
     useTransform(scrollYProgress, [0, 0.8], [50, svgHeight]),
-    {
-      stiffness: 500,
-      damping: 90,
-    },
+    springConfig
   );
   const y2 = useSpring(
     useTransform(scrollYProgress, [0, 1], [50, svgHeight - 200]),
-    {
-      stiffness: 500,
-      damping: 90,
-    },
+    springConfig
   );
+
+  if (isMobile) {
+    return (
+      <div ref={ref} className={cn("relative mx-auto h-full w-full max-w-4xl", className)}>
+        <div ref={contentRef}>{children}</div>
+      </div>
+    );
+  }
 
   return (
     <motion.div

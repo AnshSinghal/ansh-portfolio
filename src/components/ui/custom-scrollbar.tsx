@@ -2,18 +2,22 @@
 import React, { useEffect, useRef } from "react";
 import { motion, useScroll, useSpring } from "motion/react";
 import Lenis from "@studio-freight/lenis";
+import { useMediaQuery } from "react-responsive";
 
 export const CustomScrollbar = () => {
+  const isMobile = useMediaQuery({ maxWidth: 853 });
   const { scrollYProgress } = useScroll();
   const scaleY = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
+    stiffness: isMobile ? 50 : 100,
+    damping: isMobile ? 20 : 30,
     restDelta: 0.001
   });
 
   const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
+    if (isMobile) return;
+
     lenisRef.current = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -32,7 +36,9 @@ export const CustomScrollbar = () => {
     return () => {
       lenisRef.current?.destroy();
     };
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) return null;
 
   return (
     <motion.div
