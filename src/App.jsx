@@ -5,6 +5,7 @@ import Projects from "./sections/Projects";
 import Experiences from "./sections/Experiences";
 import Contact from "./sections/Contact";
 import Footer from './sections/Footer';
+import CustomCursor from "./components/CustomCursor";
 import FloatingDockDemo from "./components/floating-dock-demo";
 import { Particles } from "./components/Particles";
 import { CustomScrollbar } from "./components/ui/custom-scrollbar";
@@ -31,16 +32,21 @@ const App = () => {
           }
         `}</style>
 
+        {!isMobile && <CustomCursor />}
         {/* Custom Scrollbar - Only show on desktop */}
-        {!isMobile && <CustomScrollbar />}
+        <CustomScrollbar />
 
         {/* Particles Background */}
         <div className="fixed inset-0 -z-10">
           <Particles
             className="absolute inset-0"
-            quantity={isMobile ? 50 : 100}
-            staticity={isMobile ? 20 : 30}
+            quantity={isMobile ? 100 : 200}
+            staticity={isMobile ? 10 : 15}
             color="#ffffff"
+            size={0.8}
+            ease={30}
+            vx={0.2}
+            vy={0.2}
           />
         </div>
         

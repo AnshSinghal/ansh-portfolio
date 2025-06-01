@@ -114,7 +114,7 @@ body {
 }
 
 .grid-default-color {
-  @apply p-6 bg-gradient-to-br from-[#2a2a2a] via-[#1a1a1a] to-[#0a0a0a] rounded-2xl;
+  @apply p-6 bg-gradient-to-br from-[#3a3a3a] via-[#2a2a2a] to-[#1a1a1a] rounded-2xl;
 }
 
 .grid-special-color {
