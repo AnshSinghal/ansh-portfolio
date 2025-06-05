@@ -11,8 +11,7 @@ import { Particles } from "./components/Particles";
 import { CustomScrollbar } from "./components/ui/custom-scrollbar";
 import { SmoothScroll } from "./components/ui/smooth-scroll";
 import { useMediaQuery } from "react-responsive";
-import { SpeedInsights } from '@vercel/speed-insights';
-
+import { SpeedInsights } from '@vercel/speed-insights/react';
 const App = () => {
   const isMobile = useMediaQuery({ maxWidth: 853 });
 
