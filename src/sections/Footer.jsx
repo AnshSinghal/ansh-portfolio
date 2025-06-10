@@ -45,8 +45,8 @@ const Footer = () => {
               aria-label={social.name}
             >
               {social.icon}
-            </a>
-          ))}
+          </a>
+        ))}
         </div>
         <p className="text-sm text-neutral-400">
           © 2024 Ansh Singhal. All rights reserved.

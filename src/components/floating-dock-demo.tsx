@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FloatingDock } from "./ui/floating-dock";
 import {
   IconBrandGithub,
@@ -10,8 +10,11 @@ import {
   IconFileText,
   IconChartBar,
 } from "@tabler/icons-react";
+import ResumeModal from "./ResumeModal";
 
 export default function FloatingDockDemo() {
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
+
   const links = [
     {
       title: "Home",
@@ -46,7 +49,7 @@ export default function FloatingDockDemo() {
       icon: (
         <IconFileText className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
-      href: "/AnshSinghal.pdf",
+      onClick: () => setIsResumeOpen(true),
     },
     {
       title: "LinkedIn",
@@ -73,6 +76,7 @@ export default function FloatingDockDemo() {
       <div className="md:hidden">
         <FloatingDock items={links} />
       </div>
+      <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
     </>
   );
 } 

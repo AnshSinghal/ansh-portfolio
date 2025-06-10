@@ -12,12 +12,19 @@ import {
 
 import { useRef, useState } from "react";
 
+type DockItem = {
+  title: string;
+  icon: React.ReactNode;
+  href?: string;
+  onClick?: () => void;
+};
+
 export const FloatingDock = ({
   items,
   desktopClassName,
   mobileClassName,
 }: {
-  items: { title: string; icon: React.ReactNode; href: string }[];
+  items: DockItem[];
   desktopClassName?: string;
   mobileClassName?: string;
 }) => {
@@ -33,7 +40,7 @@ const FloatingDockMobile = ({
   items,
   className,
 }: {
-  items: { title: string; icon: React.ReactNode; href: string }[];
+  items: DockItem[];
   className?: string;
 }) => {
   const [showMore, setShowMore] = useState(false);
@@ -48,15 +55,27 @@ const FloatingDockMobile = ({
         transition={{ type: "spring", stiffness: 200, damping: 20 }}
       >
         {items.slice(0, 5).map((item, idx) => (
-          <motion.a
-            key={item.title}
-            href={item.href}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200/50 backdrop-blur-sm dark:bg-neutral-800/50"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <div className="h-5 w-5">{item.icon}</div>
-          </motion.a>
+          item.href ? (
+            <motion.a
+              key={item.title}
+              href={item.href}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200/50 backdrop-blur-sm dark:bg-neutral-800/50"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <div className="h-5 w-5">{item.icon}</div>
+            </motion.a>
+          ) : (
+            <motion.button
+              key={item.title}
+              onClick={item.onClick}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200/50 backdrop-blur-sm dark:bg-neutral-800/50"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <div className="h-5 w-5">{item.icon}</div>
+            </motion.button>
+          )
         ))}
         <motion.button
           className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200/50 backdrop-blur-sm dark:bg-neutral-800/50"
@@ -80,16 +99,29 @@ const FloatingDockMobile = ({
           >
             <div className="flex flex-col gap-2">
               {remainingItems.map((item) => (
-                <motion.a
-                  key={item.title}
-                  href={item.href}
-                  className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-200/50 backdrop-blur-sm dark:bg-neutral-800/50 hover:bg-gray-300/50 dark:hover:bg-neutral-700/50"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <div className="h-5 w-5">{item.icon}</div>
-                  <span className="text-sm text-neutral-700 dark:text-neutral-300">{item.title}</span>
-                </motion.a>
+                item.href ? (
+                  <motion.a
+                    key={item.title}
+                    href={item.href}
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-200/50 backdrop-blur-sm dark:bg-neutral-800/50 hover:bg-gray-300/50 dark:hover:bg-neutral-700/50"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <div className="h-5 w-5">{item.icon}</div>
+                    <span className="text-sm text-neutral-700 dark:text-neutral-300">{item.title}</span>
+                  </motion.a>
+                ) : (
+                  <motion.button
+                    key={item.title}
+                    onClick={item.onClick}
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-200/50 backdrop-blur-sm dark:bg-neutral-800/50 hover:bg-gray-300/50 dark:hover:bg-neutral-700/50"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <div className="h-5 w-5">{item.icon}</div>
+                    <span className="text-sm text-neutral-700 dark:text-neutral-300">{item.title}</span>
+                  </motion.button>
+                )
               ))}
             </div>
           </motion.div>
@@ -103,7 +135,7 @@ const FloatingDockDesktop = ({
   items,
   className,
 }: {
-  items: { title: string; icon: React.ReactNode; href: string }[];
+  items: DockItem[];
   className?: string;
 }) => {
   let mouseX = useMotionValue(Infinity);
@@ -128,17 +160,18 @@ function IconContainer({
   title,
   icon,
   href,
+  onClick,
 }: {
   mouseX: MotionValue;
   title: string;
   icon: React.ReactNode;
-  href: string;
+  href?: string;
+  onClick?: () => void;
 }) {
   let ref = useRef<HTMLDivElement>(null);
 
   let distance = useTransform(mouseX, (val) => {
     let bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
-
     return val - bounds.x - bounds.width / 2;
   });
 
@@ -176,8 +209,11 @@ function IconContainer({
 
   const [hovered, setHovered] = useState(false);
 
+  const Container = href ? 'a' : 'button';
+  const containerProps = href ? { href } : { onClick };
+
   return (
-    <a href={href}>
+    <Container {...containerProps}>
       <motion.div
         ref={ref}
         style={{ width, height }}
@@ -204,6 +240,6 @@ function IconContainer({
           {icon}
         </motion.div>
       </motion.div>
-    </a>
+    </Container>
   );
 } 

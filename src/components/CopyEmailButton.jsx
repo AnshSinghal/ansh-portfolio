@@ -8,7 +8,7 @@ const CopyEmailButton = () => {
   const copyToClipboard = async () => {
     try {
       await navigator.clipboard.writeText(email);
-      setCopied(true);
+    setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error("Failed to copy text: ", err);
