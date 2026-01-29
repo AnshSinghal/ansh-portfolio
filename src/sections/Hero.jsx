@@ -36,8 +36,8 @@ const Hero = () => {
         <motion.div
           className="absolute left-0 right-0 flex justify-center select-none overflow-hidden cursor-default px-4"
           style={{
-            // Use clamp for smooth transition: min at mobile, preferred, max at desktop
-            top: "clamp(8%, 10vw, 10%)",
+            // Minimum 10% from top to stay below navbar on all landscape screens
+            top: "max(10%, 5rem)",
             zIndex: 1,
           }}
           initial={{ opacity: 0, y: -20 }}
@@ -263,7 +263,8 @@ const Hero = () => {
           <motion.div
             className="absolute left-0 right-0 text-center px-4"
             style={{
-              bottom: "clamp(4rem, 10vh, 6rem)",
+              // Minimum 5.5rem from bottom to stay above navbar
+              bottom: "max(5.5rem, 12vh)",
               zIndex: 20,
             }}
             initial={{ opacity: 0, y: 20 }}
