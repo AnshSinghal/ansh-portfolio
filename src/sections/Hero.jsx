@@ -183,8 +183,8 @@ const Hero = () => {
                 </button>
 
                 <a
-                  href="/Ansh_singhal_Resume.pdf"
-                  download="Ansh_singhal_Resume.pdf"
+                  href="/Ansh_Singhal.pdf"
+                  download="Ansh_Singhal.pdf"
                   className="group/dl flex items-center gap-1.5 lg:gap-2 text-white font-bold tracking-wide hover:text-[#7a57db] transition-all duration-300 bg-gradient-to-r from-[#5c33cc]/20 to-[#7a57db]/20 hover:from-[#5c33cc]/30 hover:to-[#7a57db]/30 px-3 lg:px-4 py-2 lg:py-3 rounded-lg lg:rounded-xl border border-[#7a57db]/30"
                   style={{ fontSize: "clamp(0.625rem, 1vw, 1rem)" }}
                 >
@@ -324,8 +324,8 @@ const Hero = () => {
                 </button>
 
                 <a
-                  href="/Ansh_singhal_Resume.pdf"
-                  download="Ansh_singhal_Resume.pdf"
+                  href="/Ansh_Singhal.pdf"
+                  download="Ansh_Singhal.pdf"
                   className="group flex items-center gap-1.5 text-white font-bold text-xs bg-gradient-to-r from-[#5c33cc]/30 to-[#7a57db]/30 px-3 py-2 rounded-lg border border-[#7a57db]/30"
                 >
                   <svg
