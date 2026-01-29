@@ -1,5 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import CustomCursor from "./components/CustomCursor";
+import FloatingDockDemo from "./components/floating-dock-demo";
+import { Particles } from "./components/Particles";
+import { CustomScrollbar } from "./components/ui/custom-scrollbar";
+import { SmoothScroll } from "./components/ui/smooth-scroll";
+import { useMediaQuery } from "react-responsive";
+import { SpeedInsights } from '@vercel/speed-insights/react';
+
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const DharaPage = React.lazy(() => import("./pages/DharaPage"));
 
