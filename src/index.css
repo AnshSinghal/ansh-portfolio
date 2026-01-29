@@ -67,6 +67,22 @@ body {
   @apply min-h-screen mt-20 md:mt-30;
 }
 
+/* Hero Section Styles */
+.hero-name-large {
+  text-shadow: 0 0 80px rgba(92, 51, 204, 0.3);
+}
+
+.hero-dots-pattern {
+  opacity: 0.8;
+  z-index: 5;
+}
+
+@media (max-width: 768px) {
+  .hero-dots-pattern {
+    opacity: 0.5;
+  }
+}
+
 .text-heading {
   @apply font-bold text-3xl md:text-4xl;
 }
