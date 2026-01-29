@@ -264,7 +264,7 @@ const Hero = () => {
             className="absolute left-0 right-0 text-center px-4"
             style={{
               // Minimum 5.5rem from bottom to stay above navbar
-              bottom: "max(5.5rem, 12vh)",
+              bottom: "max(5.6rem, 12.5vh)",
               zIndex: 20,
             }}
             initial={{ opacity: 0, y: 20 }}
