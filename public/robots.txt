@@ -1,8 +1,12 @@
+# Robots.txt for anshsinghal.dev
+# AI/ML Engineer Portfolio - Ansh Singhal, Bennett University
+
 User-agent: *
 Allow: /
 Allow: /assets/
 Allow: /#about
 Allow: /#projects
+Allow: /#experiences
 Allow: /#contact
 
 # Sitemap location
@@ -18,18 +22,10 @@ Disallow: /.env
 Disallow: /package.json
 Disallow: /package-lock.json
 
-# Crawl-delay
-Crawl-delay: 10
-
-# Additional rules for specific bots
+# Googlebot - no delay needed for fast sites
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 5
 
+# Bingbot
 User-agent: Bingbot
 Allow: /
-Crawl-delay: 5
-
-User-agent: Slurp
-Allow: /
-Crawl-delay: 5 
