@@ -6,14 +6,8 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
-    // Enable minification
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true, // Remove console.logs in production
-        drop_debugger: true,
-      },
-    },
+    // Use esbuild (built-in, faster than terser)
+    minify: 'esbuild',
     // Split chunks for better caching
     rollupOptions: {
       output: {
@@ -21,7 +15,7 @@ export default defineConfig({
           // Separate vendor chunks for better caching
           'react-vendor': ['react', 'react-dom'],
           'three-vendor': ['three', '@react-three/fiber', '@react-three/drei'],
-          'motion-vendor': ['motion', 'framer-motion'],
+          'motion-vendor': ['motion'],
         },
       },
     },
