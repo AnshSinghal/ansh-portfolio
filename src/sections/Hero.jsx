@@ -44,27 +44,15 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <motion.h1
-            className="font-black text-center leading-none tracking-tighter cursor-default"
+          <h1
+            className="font-black text-center leading-none tracking-tighter cursor-default animate-glow"
             style={{
               // Fluid font size using clamp
               fontSize: showMobileLayout ? "18vw" : "clamp(8vw, 12vw, 11vw)",
               fontFamily: "'Funnel Display', sans-serif",
               whiteSpace: showMobileLayout ? "normal" : "nowrap",
               letterSpacing: "-0.02em",
-            }}
-            animate={{
-              color: ["rgba(255, 255, 255, 0.6)", "rgba(255, 255, 255, 0.95)", "rgba(255, 255, 255, 0.6)"],
-              textShadow: [
-                "0 0 30px rgba(122, 87, 219, 0.2), 0 0 60px rgba(122, 87, 219, 0.1)",
-                "0 0 60px rgba(122, 87, 219, 0.6), 0 0 120px rgba(122, 87, 219, 0.4)",
-                "0 0 30px rgba(122, 87, 219, 0.2), 0 0 60px rgba(122, 87, 219, 0.1)",
-              ],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
+              willChange: "opacity",
             }}
           >
             {showMobileLayout ? (
@@ -72,7 +60,7 @@ const Hero = () => {
             ) : (
               "ANSH SINGHAL"
             )}
-          </motion.h1>
+          </h1>
         </motion.div>
 
         {/* PHOTO - Responsive positioning */}
@@ -91,8 +79,10 @@ const Hero = () => {
           transition={{ delay: 0.2, duration: 0.8, type: "spring", stiffness: 80 }}
         >
           <img
-            src="/Ansh-Singhal-Hero.png"
+            src="/Ansh-Singhal-Hero.webp"
             alt="Ansh Singhal"
+            loading="eager"
+            decoding="async"
             style={{
               // Fluid height using clamp for desktop, auto for mobile
               height: showMobileLayout ? "auto" : "clamp(60vh, 75vh, 80vh)",
