@@ -4,14 +4,16 @@ import { useState } from "react";
 import { FlipWords } from "../components/FlipWords";
 
 const Hero = () => {
-  const isMobile = useMediaQuery({ maxWidth: 768 });
-  const isTablet = useMediaQuery({ minWidth: 769, maxWidth: 1024 });
+  // More granular breakpoints for better responsiveness
+  const isMobile = useMediaQuery({ maxWidth: 640 });
+  const isSmallTablet = useMediaQuery({ minWidth: 641, maxWidth: 900 });
+  const isTablet = useMediaQuery({ minWidth: 901, maxWidth: 1200 });
+  const isDesktop = useMediaQuery({ minWidth: 1201 });
   const [hoveredSkill, setHoveredSkill] = useState(null);
 
   const handleHireMe = () => {
     window.location.href = "mailto:anshsinghal3107@gmail.com";
   };
-
 
   const skills = [
     { name: "Machine Learning", highlight: false },
@@ -21,19 +23,21 @@ const Hero = () => {
     { name: "Open Source", highlight: false },
   ];
 
-  // Photo sizes - mobile larger and positioned higher
-  const photoSize = isMobile ? "75vh" : isTablet ? "75vh" : "80vh";
+  // Determine layout type
+  const showMobileLayout = isMobile;
+  const showDesktopLayout = !isMobile;
 
   return (
     <section className="relative h-screen w-full overflow-hidden">
       {/* Main Container */}
       <div className="relative w-full h-full">
 
-        {/* LARGE NAME - Positioned in UPPER portion */}
+        {/* LARGE NAME - Fluid responsive sizing */}
         <motion.div
-          className="absolute left-0 right-0 flex justify-center select-none overflow-hidden cursor-default"
+          className="absolute left-0 right-0 flex justify-center select-none overflow-hidden cursor-default px-4"
           style={{
-            top: isMobile ? "5%" : "8%",
+            // Use clamp for smooth transition: min at mobile, preferred, max at desktop
+            top: "clamp(8%, 10vw, 10%)",
             zIndex: 1,
           }}
           initial={{ opacity: 0, y: -20 }}
@@ -43,9 +47,10 @@ const Hero = () => {
           <motion.h1
             className="font-black text-center leading-none tracking-tighter cursor-default"
             style={{
-              fontSize: isMobile ? "18vw" : isTablet ? "13vw" : "11vw",
+              // Fluid font size using clamp
+              fontSize: showMobileLayout ? "18vw" : "clamp(8vw, 12vw, 11vw)",
               fontFamily: "'Funnel Display', sans-serif",
-              whiteSpace: isMobile ? "normal" : "nowrap",
+              whiteSpace: showMobileLayout ? "normal" : "nowrap",
               letterSpacing: "-0.02em",
             }}
             animate={{
@@ -62,7 +67,7 @@ const Hero = () => {
               ease: "easeInOut",
             }}
           >
-            {isMobile ? (
+            {showMobileLayout ? (
               <>ANSH<br />SINGHAL</>
             ) : (
               "ANSH SINGHAL"
@@ -70,53 +75,63 @@ const Hero = () => {
           </motion.h1>
         </motion.div>
 
-        {/* PHOTO - Desktop at bottom, Mobile positioned higher for blend effect */}
+        {/* PHOTO - Responsive positioning */}
         <motion.div
-          className={`absolute left-1/2 -translate-x-1/2 flex justify-center ${isMobile ? "top-[23%]" : "bottom-0 items-end"}`}
-          style={{ zIndex: 10 }}
+          className="absolute left-1/2 -translate-x-1/2 flex justify-center"
+          style={{
+            zIndex: 10,
+            // Mobile: position from top, Desktop: position from bottom
+            ...(showMobileLayout
+              ? { top: "23%" }
+              : { bottom: 0, alignItems: "flex-end" }
+            ),
+          }}
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8, type: "spring", stiffness: 80 }}
         >
-
-
           <img
             src="/Ansh-Singhal-Hero.png"
             alt="Ansh Singhal"
             style={{
-              height: isMobile ? "auto" : photoSize,
-              width: isMobile ? "100vw" : "auto",
-              maxWidth: isMobile ? "540px" : "none",
+              // Fluid height using clamp for desktop, auto for mobile
+              height: showMobileLayout ? "auto" : "clamp(60vh, 75vh, 80vh)",
+              width: showMobileLayout ? "100vw" : "auto",
+              maxWidth: showMobileLayout ? "540px" : "none",
               objectFit: "contain",
               filter: "drop-shadow(0 25px 50px rgba(0,0,0,0.5))",
             }}
           />
         </motion.div>
 
-        {/* LEFT CONTENT - HeroText with FlipWords */}
-        {!isMobile && (
+        {/* LEFT CONTENT - HeroText with FlipWords - Desktop/Tablet only */}
+        {showDesktopLayout && (
           <motion.div
-            className="absolute left-4 lg:left-8 xl:left-16"
+            className="absolute"
             style={{
+              left: "clamp(1rem, 3vw, 4rem)",
               top: "50%",
               transform: "translateY(-50%)",
               zIndex: 20,
-              maxWidth: isTablet ? "320px" : "480px",
+              maxWidth: "clamp(200px, 25vw, 420px)",
             }}
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
           >
-            <div className="backdrop-blur-xl bg-black/40 p-6 lg:p-8 rounded-2xl border border-white/10 shadow-2xl hover:bg-black/50 transition-all duration-300">
+            <div className="backdrop-blur-xl bg-black/40 p-4 lg:p-6 xl:p-8 rounded-xl lg:rounded-2xl border border-white/10 shadow-2xl hover:bg-black/50 transition-all duration-300">
               <motion.h2
-                className="text-xl lg:text-2xl font-medium text-white mb-2"
+                className="font-medium text-white mb-1 lg:mb-2"
+                style={{ fontSize: "clamp(0.875rem, 1.5vw, 1.5rem)" }}
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.7 }}
               >
+                Hi I'm Ansh Singhal,
               </motion.h2>
               <motion.p
-                className="text-lg lg:text-xl font-medium text-neutral-300 mb-1"
+                className="font-medium text-neutral-300 mb-0.5 lg:mb-1"
+                style={{ fontSize: "clamp(0.75rem, 1.3vw, 1.25rem)" }}
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.9 }}
@@ -124,7 +139,8 @@ const Hero = () => {
                 AI/ML Engineer
               </motion.p>
               <motion.p
-                className="text-base lg:text-lg text-neutral-400 mb-2"
+                className="text-neutral-400 mb-1 lg:mb-2"
+                style={{ fontSize: "clamp(0.625rem, 1vw, 1rem)" }}
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.1 }}
@@ -138,11 +154,13 @@ const Hero = () => {
               >
                 <FlipWords
                   words={["Intelligent", "Scalable", "Data-Driven", "Robust"]}
-                  className="font-black text-white text-2xl lg:text-3xl xl:text-4xl"
+                  className="font-black text-white"
+                  style={{ fontSize: "clamp(1.25rem, 2.5vw, 2.5rem)" }}
                 />
               </motion.div>
               <motion.p
-                className="text-base lg:text-lg text-neutral-300 mt-1"
+                className="text-neutral-300 mt-0.5 lg:mt-1"
+                style={{ fontSize: "clamp(0.625rem, 1vw, 1rem)" }}
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.5 }}
@@ -152,23 +170,23 @@ const Hero = () => {
 
               {/* Buttons Container */}
               <motion.div
-                className="mt-6 flex flex-wrap gap-3"
+                className="mt-3 lg:mt-6 flex flex-wrap gap-2 lg:gap-3"
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 1.7 }}
               >
                 <button
                   onClick={handleHireMe}
-                  className="group/btn flex items-center gap-2 text-white font-bold text-sm lg:text-base tracking-wide hover:text-[#7a57db] transition-all duration-300 bg-white/5 hover:bg-white/10 px-4 py-3 rounded-xl border border-white/10"
+                  className="group/btn flex items-center gap-1.5 lg:gap-2 text-white font-bold tracking-wide hover:text-[#7a57db] transition-all duration-300 bg-white/5 hover:bg-white/10 px-3 lg:px-4 py-2 lg:py-3 rounded-lg lg:rounded-xl border border-white/10"
+                  style={{ fontSize: "clamp(0.625rem, 1vw, 1rem)" }}
                 >
                   <span className="text-[#7a57db] font-bold">//</span>
                   HIRE ME
                   <svg
-                    width="18"
-                    height="18"
+                    className="transform group-hover/btn:translate-x-1 transition-transform duration-300"
+                    style={{ width: "clamp(12px, 1.2vw, 20px)", height: "clamp(12px, 1.2vw, 20px)" }}
                     viewBox="0 0 24 24"
                     fill="none"
-                    className="transform group-hover/btn:translate-x-1 transition-transform duration-300"
                   >
                     <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
@@ -177,14 +195,14 @@ const Hero = () => {
                 <a
                   href="/Ansh_singhal_Resume.pdf"
                   download="Ansh_singhal_Resume.pdf"
-                  className="group/dl flex items-center gap-2 text-white font-bold text-sm lg:text-base tracking-wide hover:text-[#7a57db] transition-all duration-300 bg-gradient-to-r from-[#5c33cc]/20 to-[#7a57db]/20 hover:from-[#5c33cc]/30 hover:to-[#7a57db]/30 px-4 py-3 rounded-xl border border-[#7a57db]/30"
+                  className="group/dl flex items-center gap-1.5 lg:gap-2 text-white font-bold tracking-wide hover:text-[#7a57db] transition-all duration-300 bg-gradient-to-r from-[#5c33cc]/20 to-[#7a57db]/20 hover:from-[#5c33cc]/30 hover:to-[#7a57db]/30 px-3 lg:px-4 py-2 lg:py-3 rounded-lg lg:rounded-xl border border-[#7a57db]/30"
+                  style={{ fontSize: "clamp(0.625rem, 1vw, 1rem)" }}
                 >
                   <svg
-                    width="18"
-                    height="18"
+                    className="transform group-hover/dl:translate-y-1 transition-transform duration-300"
+                    style={{ width: "clamp(12px, 1.2vw, 18px)", height: "clamp(12px, 1.2vw, 18px)" }}
                     viewBox="0 0 24 24"
                     fill="none"
-                    className="transform group-hover/dl:translate-y-1 transition-transform duration-300"
                   >
                     <path d="M12 4V16M12 16L7 11M12 16L17 11M4 20H20" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
@@ -195,11 +213,12 @@ const Hero = () => {
           </motion.div>
         )}
 
-        {/* RIGHT CONTENT - Larger and more interactive */}
-        {!isMobile && (
+        {/* RIGHT CONTENT - Skills - Desktop/Tablet only */}
+        {showDesktopLayout && (
           <motion.div
-            className="absolute right-4 lg:right-8 xl:right-16 text-right"
+            className="absolute text-right"
             style={{
+              right: "clamp(1rem, 3vw, 4rem)",
               top: "50%",
               transform: "translateY(-50%)",
               zIndex: 20,
@@ -208,21 +227,26 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
           >
-            <div className="backdrop-blur-xl bg-black/40 p-6 lg:p-8 rounded-2xl border border-white/10 shadow-2xl hover:bg-black/50 transition-all duration-300">
-              <ul className="space-y-3 lg:space-y-4">
+            <div className="backdrop-blur-xl bg-black/40 p-4 lg:p-6 xl:p-8 rounded-xl lg:rounded-2xl border border-white/10 shadow-2xl hover:bg-black/50 transition-all duration-300">
+              <ul className="space-y-2 lg:space-y-3 xl:space-y-4">
                 {skills.map((skill, index) => (
                   <li
                     key={skill.name}
                     className={`
-                      text-base lg:text-lg xl:text-xl font-medium cursor-pointer
-                      transition-all duration-300 py-1 px-3 rounded-lg -mr-3
+                      font-medium cursor-pointer
+                      transition-all duration-300 py-0.5 lg:py-1 px-2 lg:px-3 rounded-lg -mr-2 lg:-mr-3
                       ${skill.highlight
-                        ? "text-white font-bold text-lg lg:text-xl xl:text-2xl bg-gradient-to-l from-[#7a57db]/20 to-transparent"
+                        ? "text-white font-bold bg-gradient-to-l from-[#7a57db]/20 to-transparent"
                         : hoveredSkill === index
                           ? "text-white bg-white/5"
                           : "text-neutral-400 hover:text-white"
                       }
                     `}
+                    style={{
+                      fontSize: skill.highlight
+                        ? "clamp(0.875rem, 1.5vw, 1.5rem)"
+                        : "clamp(0.75rem, 1.2vw, 1.25rem)"
+                    }}
                     onMouseEnter={() => setHoveredSkill(index)}
                     onMouseLeave={() => setHoveredSkill(null)}
                   >
@@ -235,10 +259,13 @@ const Hero = () => {
         )}
 
         {/* MOBILE - Bottom content with HeroText and buttons - above navbar */}
-        {isMobile && (
+        {showMobileLayout && (
           <motion.div
-            className="absolute bottom-15 left-0 right-0 text-center px-4"
-            style={{ zIndex: 20 }}
+            className="absolute left-0 right-0 text-center px-4"
+            style={{
+              bottom: "clamp(4rem, 10vh, 6rem)",
+              zIndex: 20,
+            }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
