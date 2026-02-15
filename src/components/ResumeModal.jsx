@@ -44,7 +44,7 @@ const ResumeModal = ({ isOpen, onClose }) => {
     const renderPDF = async () => {
       try {
         setLoading(true);
-        const loadingTask = pdfjsLib.getDocument('/Ansh_Singhal.pdf');
+        const loadingTask = pdfjsLib.getDocument('/Ansh%20Singhal.pdf');
         const pdf = await loadingTask.promise;
         const pages = [];
 
@@ -74,8 +74,8 @@ const ResumeModal = ({ isOpen, onClose }) => {
 
   const handleDownload = () => {
     const link = document.createElement('a');
-    link.href = '/Ansh_Singhal.pdf';
-    link.download = 'Ansh_Singhal.pdf';
+    link.href = '/Ansh%20Singhal.pdf';
+    link.download = 'Ansh Singhal.pdf';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
